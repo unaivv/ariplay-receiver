@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "engram": {
+      "command": "/Users/unaividalviso/.local/bin/engram",
+      "args": [
+        "mcp",
+        "--tools=agent",
+        "--project=airplay-receiver"
+      ]
+    }
+  }
+}
