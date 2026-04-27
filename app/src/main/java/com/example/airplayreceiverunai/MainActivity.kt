@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), SurfaceHolder.Callback, AirPlayCallbac
     private lateinit var ring2: View
     private lateinit var ring3: View
 
-    private var decoder: AirPlayDecoder? = null
+    @Volatile private var decoder: AirPlayDecoder? = null
     private var nsdService: AirPlayNsdService? = null
     private var pulseAnimator: AnimatorSet? = null
 
@@ -99,13 +99,12 @@ class MainActivity : AppCompatActivity(), SurfaceHolder.Callback, AirPlayCallbac
             overlay.animate().alpha(0f).setDuration(400).withEndAction {
                 overlay.visibility = View.GONE
             }.start()
-            surfaceView.visibility = View.VISIBLE
         }
     }
 
     private fun showWaiting() {
+        clearSurface()
         runOnUiThread {
-            surfaceView.visibility = View.INVISIBLE
             errorCard.visibility = View.GONE
             statusText.text = "Esperando AirPlay…"
             overlay.visibility = View.VISIBLE
@@ -113,6 +112,14 @@ class MainActivity : AppCompatActivity(), SurfaceHolder.Callback, AirPlayCallbac
             overlay.animate().alpha(1f).setDuration(400).start()
             startPulse()
         }
+    }
+
+    private fun clearSurface() {
+        try {
+            val canvas = surfaceView.holder.lockCanvas() ?: return
+            canvas.drawColor(android.graphics.Color.BLACK)
+            surfaceView.holder.unlockCanvasAndPost(canvas)
+        } catch (_: Exception) {}
     }
 
     private fun showError(message: String) {
@@ -140,7 +147,9 @@ class MainActivity : AppCompatActivity(), SurfaceHolder.Callback, AirPlayCallbac
     // ── AirPlayCallback (called from JNI threads) ─────────────────────────────
 
     override fun onVideoData(data: ByteArray, isH265: Boolean) {
-        decoder?.onVideoData(data, isH265)
+        val d = decoder
+        if (d == null) { Log.w(TAG, "onVideoData: decoder is null"); return }
+        d.onVideoData(data, isH265)
     }
 
     override fun onConnected() {

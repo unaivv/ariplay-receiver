@@ -9,13 +9,20 @@
     <SurfaceView
         android:id="@+id/surfaceView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="invisible" />
+        android:layout_height="match_parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/overlay"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/centerGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.42" />
 
         <TextView
             android:id="@+id/appName"
@@ -38,11 +45,10 @@
             android:layout_height="260dp"
             android:background="@drawable/ring_pulse"
             android:alpha="0"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/centerGuide"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVerticalBias="0.42" />
+            app:layout_constraintTop_toTopOf="@id/centerGuide" />
 
         <View
             android:id="@+id/ring2"
@@ -50,11 +56,10 @@
             android:layout_height="200dp"
             android:background="@drawable/ring_pulse"
             android:alpha="0"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/centerGuide"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVerticalBias="0.42" />
+            app:layout_constraintTop_toTopOf="@id/centerGuide" />
 
         <View
             android:id="@+id/ring1"
@@ -62,22 +67,20 @@
             android:layout_height="140dp"
             android:background="@drawable/ring_pulse"
             android:alpha="0"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/centerGuide"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVerticalBias="0.42" />
+            app:layout_constraintTop_toTopOf="@id/centerGuide" />
 
         <FrameLayout
             android:id="@+id/iconCircle"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:background="@drawable/circle_icon_bg"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/centerGuide"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVerticalBias="0.42">
+            app:layout_constraintTop_toTopOf="@id/centerGuide">
 
             <ImageView
                 android:layout_width="48dp"
